@@ -27,13 +27,8 @@ html, body { margin: 0; height: 100%; overflow: hidden; background: #F2F0E9; -we
 #stage section { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; overflow: hidden; opacity: 0; visibility: hidden; transition: opacity .28s ease, visibility 0s linear .28s; }
 #stage section.on { opacity: 1; visibility: visible; transition: opacity .28s ease; }
 #stage.boot section { transition: none; }
-#stage .zi { position: absolute; width: 30px; height: 30px; border-radius: 15px; background: rgba(242,240,233,.86); display: flex; align-items: center; justify-content: center; cursor: zoom-in; pointer-events: auto; transition: background .2s ease; }
-#stage .zi svg { width: 15px; height: 15px; stroke: #111111; display: block; }
-#stage .zi:hover { background: #111111; } #stage .zi:hover svg { stroke: #F2F0E9; }
 #stage img[data-zoom] { cursor: zoom-in; transition: filter .35s ease, transform .5s cubic-bezier(.2,.7,.2,1); }
 @media (hover: hover) { #stage img[data-zoom]:hover { filter: brightness(.94); transform: scale(1.012); } }
-#stage .zi { transition: background .2s ease, transform .35s cubic-bezier(.2,.7,.2,1); }
-@media (hover: hover) { #stage img[data-zoom]:hover + .zi, #stage .zi:hover { transform: translate(-3px, -3px); } }
 .ui { font-family: 'Pretendard', Arial, sans-serif; font-size: 13px; line-height: 20px; font-weight: 500; color: #111111; }
 .nav { position: fixed; top: 0; bottom: 0; width: 9vw; min-width: 56px; border: 0; padding: 0; background: transparent; cursor: pointer; z-index: 5; display: flex; align-items: center; justify-content: center; }
 .nav svg { width: 44px; height: 44px; padding: 8px; box-sizing: border-box; border-radius: 22px; background: rgba(242,240,233,.82); stroke: #111111; }
@@ -74,7 +69,7 @@ button:focus { outline: none; }
 #lb button:focus-visible { outline: 2px solid #F2F0E9; outline-offset: -6px; border-radius: 30px; }
 #stage.gs section, #stage.gs section.on { transition: none; }
 @media (prefers-reduced-motion: reduce) {
-  #stage section, #stage section.on, #bar i, #hud, .nav, #stage img[data-zoom], #stage .zi { transition: none !important; transform: none !important; }
+  #stage section, #stage section.on, #bar i, #hud, .nav, #stage img[data-zoom] { transition: none !important; transform: none !important; }
   body.hint #next svg, #rot svg { animation: none !important; }
 }
 </style>
@@ -382,17 +377,7 @@ button:focus { outline: none; }
   document.getElementById('lbp').onclick = function (e) { e.stopPropagation(); stepLb(-1); };
   document.getElementById('lbn').onclick = function (e) { e.stopPropagation(); stepLb(1); };
   document.getElementById('lbx').onclick = closeLb; lb.onclick = function (e) { if (e.target === lb || e.target === lbImg) closeLb(); };
-  (function () {
-    var ic = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L20 20"/></svg>';
-    var ims = stage.querySelectorAll('img[data-zoom]');
-    for (var i = 0; i < ims.length; i++) {
-      var im = ims[i], l = parseInt(im.style.left, 10), t = parseInt(im.style.top, 10), w = parseInt(im.style.width, 10), h = parseInt(im.style.height, 10);
-      var z = document.createElement('span'); z.className = 'zi'; z.innerHTML = ic; z.setAttribute('aria-hidden', 'true');
-      z.style.left = (l + w - 40) + 'px'; z.style.top = (t + h - 40) + 'px'; z._img = im;
-      im.parentNode.insertBefore(z, im.nextSibling);
-    }
-  })();
-  stage.addEventListener('click', function (e) { var z = e.target.closest && e.target.closest('.zi'); if (z) { openLb(z._img); return; } if (e.target.getAttribute && e.target.getAttribute('data-zoom')) openLb(e.target); });
+  stage.addEventListener('click', function (e) { if (e.target.getAttribute && e.target.getAttribute('data-zoom')) openLb(e.target); });
   document.addEventListener('keydown', function (e) {
     var k = e.key;
     if (lbOpen()) { if (k === 'Escape') closeLb(); else if (k === 'ArrowLeft') stepLb(-1); else if (k === 'ArrowRight') stepLb(1); return; }
