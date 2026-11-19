@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>AQ 27SS SHOOT PLAN VER.07</title>
+<style>
+@font-face { font-family: 'Pretendard'; src: url('pretendard-subset.woff2') format('woff2'); font-weight: 100 900; font-display: swap; }
+html, body { margin: 0; height: 100%; overflow: hidden; background: #F2F0E9; -webkit-text-size-adjust: 100%; }
+#stage { font-family: 'Pretendard', Arial, sans-serif; color: #111111; }
+#stage section { padding: 0; background: #F2F0E9; }
+#stage h1, #stage h2, #stage p { margin: 0; }
+.t1 { font-size: 55px; line-height: 60px; font-weight: 300; letter-spacing: 0; color: #111111; white-space: nowrap; }
+.t2 { font-size: 21px; line-height: 28px; font-weight: 500; letter-spacing: 0; color: #111111; white-space: nowrap; }
+.t3 { font-size: 13px; line-height: 20px; font-weight: 500; letter-spacing: 0; color: #7D7B74; white-space: nowrap; }
+.t1.on-image { color: #F2F0E9; }
+.t3.on-image { color: #F2F0E9; }
+.right { text-align: right; }
+.photo { object-fit: cover; }
+.rule { background: #CBC7BB; }
+.b { font-weight: 700; }
+.shade { background: linear-gradient(180deg, rgba(0,0,0,0.40) 0%, rgba(0,0,0,0) 24%, rgba(0,0,0,0) 62%, rgba(0,0,0,0.62) 100%); }
+
+#view { position: fixed; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; touch-action: pan-y; }
+#stage { position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px; margin: -540px 0 0 -960px; transform-origin: 50% 50%; }
+#stage section { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; overflow: hidden; opacity: 0; visibility: hidden; transition: opacity .28s ease, visibility 0s linear .28s; }
+#stage section.on { opacity: 1; visibility: visible; transition: opacity .28s ease; }
+#stage.boot section { transition: none; }
+#stage img[data-zoom] { cursor: zoom-in; transition: filter .2s ease; }
+#stage img[data-zoom]:hover { filter: brightness(.9); }
+.ui { font-family: 'Pretendard', Arial, sans-serif; font-size: 13px; line-height: 20px; font-weight: 500; color: #111111; }
+.nav { position: fixed; top: 0; bottom: 0; width: 9vw; min-width: 56px; border: 0; padding: 0; background: transparent; cursor: pointer; z-index: 5; display: flex; align-items: center; justify-content: center; }
+.nav svg { width: 44px; height: 44px; padding: 8px; box-sizing: border-box; border-radius: 22px; background: rgba(242,240,233,.82); stroke: #111111; }
+.nav:hover svg { background: #111111; stroke: #F2F0E9; }
+.nav[disabled] { visibility: hidden; }
+@keyframes nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(8px); } }
+body.hint #next svg { animation: nudge 1s ease-in-out 3; }
+#prev { left: 0; } #next { right: 0; }
+#bar { position: fixed; left: 0; right: 0; bottom: 0; height: 2px; background: rgba(17,17,17,.08); z-index: 5; }
+#bar i { display: block; height: 2px; width: 0; background: #111111; transition: width .28s ease; }
+#hud { position: fixed; right: 12px; bottom: 10px; z-index: 6; display: flex; gap: 10px; align-items: center; }
+#hud button { width: 44px; height: 44px; padding: 12px; box-sizing: border-box; border: 0; border-radius: 22px; background: rgba(242,240,233,.82); cursor: pointer; }
+#hud button svg { width: 20px; height: 20px; stroke: #111111; display: block; }
+#hud button:hover { background: #111111; }
+#hud button:hover svg { stroke: #F2F0E9; }
+#fs .in { display: none; } body.fs #fs .in { display: block; } body.fs #fs .out { display: none; }
+#lb button { cursor: pointer; }
+#hud, .nav { transition: opacity .3s ease; }
+body.idle #hud, body.idle .nav { opacity: 0; pointer-events: none; }
+#lb.off, #rot.off { display: none; }
+#rot { position: fixed; left: 50%; top: 14px; margin-left: -22px; width: 44px; height: 44px; padding: 10px; box-sizing: border-box; border-radius: 22px; z-index: 15; background: #111111; }
+#rot svg { width: 24px; height: 24px; stroke: #F2F0E9; display: block; animation: turn 1.6s ease-in-out infinite; }
+@keyframes turn { 0%, 30% { transform: rotate(0deg); } 70%, 100% { transform: rotate(-90deg); } }
+#lb { position: fixed; left: 0; top: 0; right: 0; bottom: 0; z-index: 30; background: rgba(17,17,17,.94); color: #F2F0E9; }
+#lb img { position: absolute; left: 50%; top: 50%; max-width: 92vw; max-height: 84vh; transform: translate(-50%, -52%); cursor: zoom-out; }
+#lb .cap { position: absolute; left: 0; right: 0; bottom: 12px; text-align: center; color: #F2F0E9; }
+#lb .cap span { display: block; }
+#lbc { color: #CBC7BB; }
+#lbd { font-size: 15px; line-height: 24px; }
+#lb img { max-height: 82vh; }
+#lb button { position: absolute; background: transparent; border: 0; width: 60px; height: 60px; padding: 14px; box-sizing: border-box; }
+#lb button svg { width: 32px; height: 32px; stroke: #F2F0E9; display: block; }
+#lbp { left: 4px; top: 50%; margin-top: -30px; } #lbn { right: 4px; top: 50%; margin-top: -30px; }
+#lbx { right: 6px; top: 6px; }
+::selection { background: #111111; color: #F2F0E9; }
+button:focus { outline: none; }
+.nav:focus-visible svg, #hud button:focus-visible { outline: 2px solid #111111; outline-offset: 2px; }
+#lb button:focus-visible { outline: 2px solid #F2F0E9; outline-offset: -6px; border-radius: 30px; }
+#stage.gs section, #stage.gs section.on { transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  #stage section, #stage section.on, #bar i, #hud, .nav, #stage img[data-zoom] { transition: none !important; }
+  body.hint #next svg, #rot svg { animation: none !important; }
+}
+</style>
+</head>
+<body>
+<div id="view"><div id="stage" class="boot">
+<section id="s1" data-id="cover">
+<img data-src="logo_aq.png?v=0719" alt="Aquascutum London" style="position:absolute;left:60px;top:84px;width:300px;height:154px;object-fit:contain">
+<h1 class="t1" style="position:absolute;left:60px;top:900px;width:1200px">A TAILORED HOLIDAY</h1>
+<p class="t3" style="position:absolute;left:60px;top:972px;width:1200px">27SS SHOOT PLAN</p>
+<p class="t3" style="position:absolute;left:60px;top:1018px;width:600px">11/19(목) · VER.07</p>
+<p class="t3 right" style="position:absolute;left:1660px;top:1018px;width:200px">01 / 12</p>
+</section>
+<section id="s2" data-id="studio">
+<h2 class="t2" style="position:absolute;left:60px;top:36px;width:600px">Studio Shoot</h2>
+<p class="t3 right" style="position:absolute;left:1060px;top:40px;width:800px">A TAILORED HOLIDAY</p>
+<div style="position:absolute;left:60px;top:300px;width:1150px;height:601px"><div class="rule" style="height:1px;margin-bottom:119px"></div><div class="rule" style="height:1px;margin-bottom:119px"></div><div class="rule" style="height:1px;margin-bottom:119px"></div><div class="rule" style="height:1px;margin-bottom:119px"></div><div class="rule" style="height:1px;margin-bottom:119px"></div><div class="rule" style="height:1px;margin-bottom:0px"></div></div>
+<p class="t2 b" style="position:absolute;left:60px;top:346px;width:240px">METHOD</p>
+<p class="t2" style="position:absolute;left:320px;top:346px;width:890px">스튜디오 촬영 · 여 모델 1명</p>
+<p class="t2 b" style="position:absolute;left:60px;top:466px;width:240px">BACKDROP</p>
+<p class="t2" style="position:absolute;left:320px;top:466px;width:890px">그레이 · 화이트 호리존 · 바닥까지 이어지는 무지 배경 · 오브제 최소화</p>
+<p class="t2 b" style="position:absolute;left:60px;top:586px;width:240px">LIGHT</p>
+<p class="t2" style="position:absolute;left:320px;top:586px;width:890px">자연광 톤 확산광 · 로케이션 광원 방향에 맞춘 키라이트</p>
+<p class="t2 b" style="position:absolute;left:60px;top:706px;width:240px">CUTS</p>
+<p class="t2" style="position:absolute;left:320px;top:706px;width:890px">전신 정면 · 측면 · 워킹 · 상반신 디테일</p>
+<p class="t2 b" style="position:absolute;left:60px;top:826px;width:240px">USE</p>
+<p class="t2" style="position:absolute;left:320px;top:826px;width:890px">룩북 원본 컷 · AI 로케이션 배경 합성 소스</p>
+<img class="photo" data-src="v7_ag49.jpg?v=0719" alt="Agnona · 27Ss" style="position:absolute;left:1271px;top:84px;width:589px;height:866px" data-zoom="1" data-full="o_v7_ag49.jpg?v=0719" data-cap="AGNONA · 27SS" data-desc="창가 자연광 · 정면 스탠딩 · 창 그림자">
+<p class="t3" style="position:absolute;left:1271px;top:964px;width:589px">AGNONA · 27SS</p>
+<p class="t3" style="position:absolute;left:60px;top:1018px;width:600px">STUDIO</p>
+<p class="t3 right" style="position:absolute;left:1660px;top:1018px;width:200px">02 / 12</p>
+</section>
+<section id="s3" data-id="studio-ag">
+<h2 class="t2" style="position:absolute;left:60px;top:36px;width:600px">Studio Reference</h2>
+<p class="t3 right" style="position:absolute;left:1060px;top:40px;width:800px">화이트 호리존 · 창 그림자 · 자연스러운 포즈</p>
+<img class="photo" data-src="v7_agu42.jpg?v=0719" alt="Agnona · 27Ss" style="position:absolute;left:60px;top:84px;width:759px;height:866px" data-zoom="1" data-full="o_v7_agu42.jpg?v=0719" data-cap="AGNONA · 27SS" data-desc="창가 자연광 · 정면 스탠딩 · 리넨 결">
+<img class="photo" data-src="v7_agu59.jpg?v=0719" alt="Agnona · 27Ss" style="position:absolute;left:835px;top:84px;width:372px;height:425px" data-zoom="1" data-full="o_v7_agu59.jpg?v=0719" data-cap="AGNONA · 27SS" data-desc="창가 자연광 · 정면 스탠딩 · 파스텔 톤">
+<img class="photo" data-src="v7_agu44.jpg?v=0719" alt="Agnona · 27Ss" style="position:absolute;left:835px;top:525px;width:372px;height:425px" data-zoom="1" data-full="o_v7_agu44.jpg?v=0719" data-cap="AGNONA · 27SS" data-desc="창가 자연광 · 측면 스탠딩 · 드레이프">
+<img class="photo" data-src="v7_agu24.jpg?v=0719" alt="Agnona · 27Ss" style="position:absolute;left:1223px;top:84px;width:372px;height:425px" data-zoom="1" data-full="o_v7_agu24.jpg?v=0719" data-cap="AGNONA · 27SS" data-desc="확산광 · 정면 상반신 · 울 질감">
+<img class="photo" data-src="v7_agu62.jpg?v=0719" alt="Agnona · 27Ss" style="position:absolute;left:1223px;top:525px;width:372px;height:425px" data-zoom="1" data-full="o_v7_agu62.jpg?v=0719" data-cap="AGNONA · 27SS" data-desc="흑백 · 측면 · 화이트 계조">
+<img class="photo" data-src="v7_agu43.jpg?v=0719" alt="Agnona · 27Ss" style="position:absolute;left:1611px;top:84px;width:249px;height:278px" data-zoom="1" data-full="o_v7_agu43.jpg?v=0719" data-cap="AGNONA · 27SS" data-desc="근접 · 정면 · 자수 디테일">
+<img class="photo" data-src="v7_agu57.jpg?v=0719" alt="Agnona · 27Ss" style="position:absolute;left:1611px;top:378px;width:249px;height:278px" data-zoom="1" data-full="o_v7_agu57.jpg?v=0719" data-cap="AGNONA · 27SS" data-desc="흑백 · 근접 · 자수 디테일">
+<img class="photo" data-src="v7_agu51.jpg?v=0719" alt="Agnona · 27Ss" style="position:absolute;left:1611px;top:672px;width:249px;height:278px" data-zoom="1" data-full="o_v7_agu51.jpg?v=0719" data-cap="AGNONA · 27SS" data-desc="확산광 · 정면 상반신 · 톤온톤">
+<p class="t3" style="position:absolute;left:60px;top:1018px;width:600px">STUDIO · AGNONA 27SS</p>
+<p class="t3 right" style="position:absolute;left:1660px;top:1018px;width:200px">03 / 12</p>
+</section>
+<section id="s4" data-id="studio-ag2">
+<h2 class="t2" style="position:absolute;left:60px;top:36px;width:600px">Studio Reference</h2>
+<p class="t3 right" style="position:absolute;left:1060px;top:40px;width:800px">화이트 호리존 · 창 그림자 · 자연스러운 포즈</p>
+<img class="photo" data-src="v7_agu53.jpg?v=0719" alt="Agnona · 27Ss" style="position:absolute;left:60px;top:84px;width:249px;height:278px" data-zoom="1" data-full="o_v7_agu53.jpg?v=0719" data-cap="AGNONA · 27SS" data-desc="창가 자연광 · 측면 · 실크 광택">
+<img class="photo" data-src="v7_agu50.jpg?v=0719" alt="Agnona · 27Ss" style="position:absolute;left:60px;top:378px;width:249px;height:278px" data-zoom="1" data-full="o_v7_agu50.jpg?v=0719" data-cap="AGNONA · 27SS" data-desc="흑백 · 측면 · 타공 질감">
+<img class="photo" data-src="v7_agu68.jpg?v=0719" alt="Agnona · 27Ss" style="position:absolute;left:60px;top:672px;width:249px;height:278px" data-zoom="1" data-full="o_v7_agu68.jpg?v=0719" data-cap="AGNONA · 27SS" data-desc="확산광 · 측면 · 스트라이프 드레이프">
+<img class="photo" data-src="v7_agu27.jpg?v=0719" alt="Agnona · 27Ss" style="position:absolute;left:325px;top:84px;width:372px;height:425px" data-zoom="1" data-full="o_v7_agu27.jpg?v=0719" data-cap="AGNONA · 27SS" data-desc="창가 자연광 · 정면 · 트위드 질감">
+<img class="photo" data-src="v7_agu39.jpg?v=0719" alt="Agnona · 27Ss" style="position:absolute;left:325px;top:525px;width:372px;height:425px" data-zoom="1" data-full="o_v7_agu39.jpg?v=0719" data-cap="AGNONA · 27SS" data-desc="확산광 · 정면 · 메시 질감">
+<img class="photo" data-src="v7_agu23.jpg?v=0719" alt="Agnona · 27Ss" style="position:absolute;left:713px;top:84px;width:372px;height:425px" data-zoom="1" data-full="o_v7_agu23.jpg?v=0719" data-cap="AGNONA · 27SS" data-desc="확산광 · 측면 전신 · 볼륨 실루엣">
+<img class="photo" data-src="v7_agu56.jpg?v=0719" alt="Agnona · 27Ss" style="position:absolute;left:713px;top:525px;width:372px;height:425px" data-zoom="1" data-full="o_v7_agu56.jpg?v=0719" data-cap="AGNONA · 27SS" data-desc="확산광 · 정면 상반신 · 리넨 결">
+<img class="photo" data-src="v7_agu28.jpg?v=0719" alt="Agnona · 27Ss" style="position:absolute;left:1101px;top:84px;width:759px;height:866px" data-zoom="1" data-full="o_v7_agu28.jpg?v=0719" data-cap="AGNONA · 27SS" data-desc="창가 자연광 · 턴 동작 · 원단 움직임">
+<p class="t3" style="position:absolute;left:60px;top:1018px;width:600px">STUDIO · AGNONA 27SS</p>
+<p class="t3 right" style="position:absolute;left:1660px;top:1018px;width:200px">04 / 12</p>
+</section>
+<section id="s5" data-id="studio-gp">
+<h2 class="t2" style="position:absolute;left:60px;top:36px;width:600px">Studio Reference</h2>
+<p class="t3 right" style="position:absolute;left:1060px;top:40px;width:800px">그레이 · 베이지 호리존 · 정자세 · 테일러드 실루엣</p>
+<p class="t2 b" style="position:absolute;left:60px;top:84px;width:440px">GRAPHPAPER</p>
+<p class="t3" style="position:absolute;left:60px;top:118px;width:440px">26SS</p>
+<img class="photo" data-src="v7_rgp07.jpg?v=0719" alt="Graphpaper · 26Ss" style="position:absolute;left:536px;top:84px;width:319px;height:425px" data-zoom="1" data-full="o_v7_rgp07.jpg?v=0719" data-cap="GRAPHPAPER · 26SS" data-desc="호리존 · 확산광 · 정면 워킹">
+<img class="photo" data-src="v7_rgp11.jpg?v=0719" alt="Graphpaper · 26Ss" style="position:absolute;left:871px;top:84px;width:319px;height:425px" data-zoom="1" data-full="o_v7_rgp11.jpg?v=0719" data-cap="GRAPHPAPER · 26SS" data-desc="호리존 · 확산광 · 화이트 계조">
+<img class="photo" data-src="v7_rgp13.jpg?v=0719" alt="Graphpaper · 26Ss" style="position:absolute;left:1206px;top:84px;width:319px;height:425px" data-zoom="1" data-full="o_v7_rgp13.jpg?v=0719" data-cap="GRAPHPAPER · 26SS" data-desc="호리존 · 확산광 · 그레이 톤">
+<img class="photo" data-src="v7_rgp16.jpg?v=0719" alt="Graphpaper · 26Ss" style="position:absolute;left:1541px;top:84px;width:319px;height:425px" data-zoom="1" data-full="o_v7_rgp16.jpg?v=0719" data-cap="GRAPHPAPER · 26SS" data-desc="호리존 · 확산광 · 톤온톤 실루엣">
+<p class="t2 b" style="position:absolute;left:60px;top:525px;width:440px">ELEVENTY</p>
+<p class="t3" style="position:absolute;left:60px;top:559px;width:440px">27SS</p>
+<img class="photo" data-src="v7_rel14.jpg?v=0719" alt="Eleventy · 27Ss" style="position:absolute;left:536px;top:525px;width:319px;height:425px" data-zoom="1" data-full="o_v7_rel14.jpg?v=0719" data-cap="ELEVENTY · 27SS" data-desc="석고 벽 세트 · 확산광 · 정면 스탠딩">
+<img class="photo" data-src="v7_rel04.jpg?v=0719" alt="Eleventy · 27Ss" style="position:absolute;left:871px;top:525px;width:319px;height:425px" data-zoom="1" data-full="o_v7_rel04.jpg?v=0719" data-cap="ELEVENTY · 27SS" data-desc="석고 벽 세트 · 확산광 · 스웨이드 질감">
+<img class="photo" data-src="v7_rel08.jpg?v=0719" alt="Eleventy · 27Ss" style="position:absolute;left:1206px;top:525px;width:319px;height:425px" data-zoom="1" data-full="o_v7_rel08.jpg?v=0719" data-cap="ELEVENTY · 27SS" data-desc="석고 벽 세트 · 체어 착석 · 확산광">
+<img class="photo" data-src="v7_rel01.jpg?v=0719" alt="Eleventy · 27Ss" style="position:absolute;left:1541px;top:525px;width:319px;height:425px" data-zoom="1" data-full="o_v7_rel01.jpg?v=0719" data-cap="ELEVENTY · 27SS" data-desc="석고 벽 세트 · 확산광 · 화이트 계조">
+<p class="t3" style="position:absolute;left:60px;top:1018px;width:600px">STUDIO · GRAPHPAPER · ELEVENTY</p>
+<p class="t3 right" style="position:absolute;left:1660px;top:1018px;width:200px">05 / 12</p>
+</section>
+<section id="s6" data-id="studio-sc">
+<h2 class="t2" style="position:absolute;left:60px;top:36px;width:600px">Studio Reference</h2>
+<p class="t3 right" style="position:absolute;left:1060px;top:40px;width:800px">화이트 스튜디오 · 창가 자연광 · 메탈 오브제</p>
+<img class="photo" data-src="v7_scr47.jpg?v=0719" alt="Scye · 25Ss" style="position:absolute;left:60px;top:84px;width:822px;height:866px" data-zoom="1" data-full="o_v7_scr47.jpg?v=0719" data-cap="SCYE · 25SS" data-desc="자연광 스튜디오 · 메탈 오브제 · 정면 스탠딩">
+<img class="photo" data-src="v7_scr14.jpg?v=0719" alt="Scye · 25Ss" style="position:absolute;left:898px;top:84px;width:403px;height:425px" data-zoom="1" data-full="o_v7_scr14.jpg?v=0719" data-cap="SCYE · 25SS" data-desc="자연광 스튜디오 · 기둥 · 측면 스탠딩">
+<img class="photo" data-src="v7_scr03.jpg?v=0719" alt="Scye · 25Ss" style="position:absolute;left:898px;top:525px;width:403px;height:425px" data-zoom="1" data-full="o_v7_scr03.jpg?v=0719" data-cap="SCYE · 25SS" data-desc="근접 · 자연광 · 체크 패턴">
+<img class="photo" data-src="v7_scr20.jpg?v=0719" alt="Scye · 25Ss" style="position:absolute;left:1317px;top:84px;width:264px;height:278px" data-zoom="1" data-full="o_v7_scr20.jpg?v=0719" data-cap="SCYE · 25SS" data-desc="근접 · 정면 · 코튼 질감">
+<img class="photo" data-src="v7_scr22.jpg?v=0719" alt="Scye · 25Ss" style="position:absolute;left:1317px;top:378px;width:264px;height:278px" data-zoom="1" data-full="o_v7_scr22.jpg?v=0719" data-cap="SCYE · 25SS" data-desc="자연광 스튜디오 · 기둥 · 트위드 질감">
+<img class="photo" data-src="v7_scr41.jpg?v=0719" alt="Scye · 25Ss" style="position:absolute;left:1317px;top:672px;width:264px;height:278px" data-zoom="1" data-full="o_v7_scr41.jpg?v=0719" data-cap="SCYE · 25SS" data-desc="자연광 · 뒷모습 · 드레이프">
+<img class="photo" data-src="v7_scr23.jpg?v=0719" alt="Scye · 25Ss" style="position:absolute;left:1597px;top:84px;width:263px;height:278px" data-zoom="1" data-full="o_v7_scr23.jpg?v=0719" data-cap="SCYE · 25SS" data-desc="자연광 스튜디오 · 메탈 오브제 · 롱 실루엣">
+<img class="photo" data-src="v7_scr10.jpg?v=0719" alt="Scye · 25Ss" style="position:absolute;left:1597px;top:378px;width:263px;height:278px" data-zoom="1" data-full="o_v7_scr10.jpg?v=0719" data-cap="SCYE · 25SS" data-desc="근접 · 확산광 · 스트라이프 니트">
+<img class="photo" data-src="v7_scr27.jpg?v=0719" alt="Scye · 25Ss" style="position:absolute;left:1597px;top:672px;width:263px;height:278px" data-zoom="1" data-full="o_v7_scr27.jpg?v=0719" data-cap="SCYE · 25SS" data-desc="자연광 스튜디오 · 기둥 · 새틴 광택">
+<p class="t3" style="position:absolute;left:60px;top:1018px;width:600px">STUDIO · SCYE 25SS</p>
+<p class="t3 right" style="position:absolute;left:1660px;top:1018px;width:200px">06 / 12</p>
+</section>
+<section id="s7" data-id="ai">
+<h2 class="t2" style="position:absolute;left:60px;top:36px;width:600px">AI Lookbook</h2>
+<p class="t3 right" style="position:absolute;left:1060px;top:40px;width:800px">A TAILORED HOLIDAY</p>
+<div style="position:absolute;left:60px;top:300px;width:1150px;height:601px"><div class="rule" style="height:1px;margin-bottom:119px"></div><div class="rule" style="height:1px;margin-bottom:119px"></div><div class="rule" style="height:1px;margin-bottom:119px"></div><div class="rule" style="height:1px;margin-bottom:119px"></div><div class="rule" style="height:1px;margin-bottom:119px"></div><div class="rule" style="height:1px;margin-bottom:0px"></div></div>
+<p class="t2 b" style="position:absolute;left:60px;top:346px;width:240px">METHOD</p>
+<p class="t2" style="position:absolute;left:320px;top:346px;width:890px">스튜디오 컷 소스 · 로케이션 배경 AI 합성</p>
+<p class="t2 b" style="position:absolute;left:60px;top:466px;width:240px">LOCATION</p>
+<p class="t2" style="position:absolute;left:320px;top:466px;width:890px">석조 해안 마을 · 해변과 항구 · 바다 테라스</p>
+<p class="t2 b" style="position:absolute;left:60px;top:586px;width:240px">LIGHT</p>
+<p class="t2" style="position:absolute;left:320px;top:586px;width:890px">스튜디오 키라이트 방향 · 색온도에 배경 광원 맞춤</p>
+<p class="t2 b" style="position:absolute;left:60px;top:706px;width:240px">TONE</p>
+<p class="t2" style="position:absolute;left:320px;top:706px;width:890px">웜 뉴트럴 · 낮은 채도 · 스튜디오 컷과 동일 보정</p>
+<p class="t2 b" style="position:absolute;left:60px;top:826px;width:240px">FOCUS</p>
+<p class="t2 b" style="position:absolute;left:320px;top:826px;width:890px">스튜디오 촬영 · AI 룩북 톤앤무드 일관성 유지</p>
+<img class="photo" data-src="rs6_og05.jpg?v=0719" alt="Officine Générale · 25Ss" style="position:absolute;left:1271px;top:84px;width:589px;height:866px" data-zoom="1" data-full="o_rs6_og05.jpg?v=0719" data-cap="OFFICINE GÉNÉRALE · 25SS" data-desc="조각 중정 · 자연광 · 정자세">
+<p class="t3" style="position:absolute;left:1271px;top:964px;width:589px">OFFICINE GÉNÉRALE · 25SS</p>
+<p class="t3" style="position:absolute;left:60px;top:1018px;width:600px">AI LOOKBOOK</p>
+<p class="t3 right" style="position:absolute;left:1660px;top:1018px;width:200px">07 / 12</p>
+</section>
+<section id="s8" data-id="ai-town">
+<h2 class="t2" style="position:absolute;left:60px;top:36px;width:600px">AI Lookbook</h2>
+<p class="t3 right" style="position:absolute;left:1060px;top:40px;width:800px">해변 석조 구조물 · 광장 · 석조 건물 외벽</p>
+<img class="photo" data-src="v7_aib_24.jpg?v=0719" alt="Palermo · Piazza" style="position:absolute;left:60px;top:84px;width:438px;height:280px" data-zoom="1" data-full="o_v7_aib_24.jpg?v=0719" data-cap="PALERMO · PIAZZA" data-desc="분수 광장 · 대칭 계단 · 석조 파사드">
+<p class="t3" style="position:absolute;left:60px;top:372px;width:438px">PALERMO · PIAZZA</p>
+<img class="photo" data-src="v7_ai_m38.jpg?v=0719" alt="Brunello Cucinelli · 26Ss" style="position:absolute;left:60px;top:408px;width:438px;height:542px" data-zoom="1" data-full="o_v7_ai_m38.jpg?v=0719" data-cap="BRUNELLO CUCINELLI · 26SS" data-desc="바로크 계단 · 골든아워 · 원경 2인">
+<p class="t3" style="position:absolute;left:60px;top:964px;width:438px">BRUNELLO CUCINELLI · 26SS</p>
+<img class="photo" data-src="v7_aib_29.jpg?v=0719" alt="Harbor · Stone Tower" style="position:absolute;left:514px;top:84px;width:438px;height:280px" data-zoom="1" data-full="o_v7_aib_29.jpg?v=0719" data-cap="HARBOR · STONE TOWER" data-desc="항구 · 석조 탑 · 정박 보트">
+<p class="t3" style="position:absolute;left:514px;top:372px;width:438px">HARBOR · STONE TOWER</p>
+<img class="photo" data-src="v7_ai_m40.jpg?v=0719" alt="Brunello Cucinelli · 26Ss" style="position:absolute;left:514px;top:408px;width:438px;height:542px" data-zoom="1" data-full="o_v7_ai_m40.jpg?v=0719" data-cap="BRUNELLO CUCINELLI · 26SS" data-desc="석조 계단 · 골든아워 · 리넨 질감">
+<p class="t3" style="position:absolute;left:514px;top:964px;width:438px">BRUNELLO CUCINELLI · 26SS</p>
+<img class="photo" data-src="v7_aib_us04.jpg?v=0719" alt="Ravello · Stone Terrace" style="position:absolute;left:968px;top:84px;width:438px;height:280px" data-zoom="1" data-full="o_v7_aib_us04.jpg?v=0719" data-cap="RAVELLO · STONE TERRACE" data-desc="석조 테라스 · 흉상 난간 · 바다 전망">
+<p class="t3" style="position:absolute;left:968px;top:372px;width:438px">RAVELLO · STONE TERRACE</p>
+<img class="photo" data-src="v7_ai_og18.jpg?v=0719" alt="Officine Générale · 25Ss" style="position:absolute;left:968px;top:408px;width:438px;height:542px" data-zoom="1" data-full="o_v7_ai_og18.jpg?v=0719" data-cap="OFFICINE GÉNÉRALE · 25SS" data-desc="조각 중정 · 자연광 · 화이트 음영">
+<p class="t3" style="position:absolute;left:968px;top:964px;width:438px">OFFICINE GÉNÉRALE · 25SS</p>
+<img class="photo" data-src="v7_aib_us14.jpg?v=0719" alt="Stari Grad · Stone Facade" style="position:absolute;left:1422px;top:84px;width:438px;height:280px" data-zoom="1" data-full="o_v7_aib_us14.jpg?v=0719" data-cap="STARI GRAD · STONE FACADE" data-desc="석조 골목 · 계단 · 석조 외벽">
+<p class="t3" style="position:absolute;left:1422px;top:372px;width:438px">STARI GRAD · STONE FACADE</p>
+<img class="photo" data-src="v7_ai_og07.jpg?v=0719" alt="Officine Générale · 25Ss" style="position:absolute;left:1422px;top:408px;width:438px;height:542px" data-zoom="1" data-full="o_v7_ai_og07.jpg?v=0719" data-cap="OFFICINE GÉNÉRALE · 25SS" data-desc="석조 벽 · 자연광 · 정자세">
+<p class="t3" style="position:absolute;left:1422px;top:964px;width:438px">OFFICINE GÉNÉRALE · 25SS</p>
+<p class="t3" style="position:absolute;left:60px;top:1018px;width:600px">AI LOOKBOOK · 01 / 03</p>
+<p class="t3 right" style="position:absolute;left:1660px;top:1018px;width:200px">08 / 12</p>
+</section>
+<section id="s9" data-id="ai-beach">
+<h2 class="t2" style="position:absolute;left:60px;top:36px;width:600px">AI Lookbook</h2>
+<p class="t3 right" style="position:absolute;left:1060px;top:40px;width:800px">해변 · 항구 · 마리나</p>
+<img class="photo" data-src="v7_aib_us17.jpg?v=0719" alt="Positano · Beach" style="position:absolute;left:60px;top:84px;width:438px;height:280px" data-zoom="1" data-full="o_v7_aib_us17.jpg?v=0719" data-cap="POSITANO · BEACH" data-desc="해변 전경 · 파라솔 · 절벽 마을">
+<p class="t3" style="position:absolute;left:60px;top:372px;width:438px">POSITANO · BEACH</p>
+<img class="photo" data-src="v7_ai_bo13.jpg?v=0719" alt="Boglioli · 23Ss" style="position:absolute;left:60px;top:408px;width:438px;height:542px" data-zoom="1" data-full="o_v7_ai_bo13.jpg?v=0719" data-cap="BOGLIOLI · 23SS" data-desc="파도 · 역광 · 윤곽선">
+<p class="t3" style="position:absolute;left:60px;top:964px;width:438px">BOGLIOLI · 23SS</p>
+<img class="photo" data-src="v7_aib_31.jpg?v=0719" alt="Sandy Beach Town" style="position:absolute;left:514px;top:84px;width:438px;height:280px" data-zoom="1" data-full="o_v7_aib_31.jpg?v=0719" data-cap="SANDY BEACH TOWN" data-desc="모래 해변 · 해안 마을 · 산 배경">
+<p class="t3" style="position:absolute;left:514px;top:372px;width:438px">SANDY BEACH TOWN</p>
+<img class="photo" data-src="v7_ai_lp13.jpg?v=0719" alt="Loro Piana" style="position:absolute;left:514px;top:408px;width:438px;height:542px" data-zoom="1" data-full="o_v7_ai_lp13.jpg?v=0719" data-cap="LORO PIANA" data-desc="근접 · 역광 · 니트 결">
+<p class="t3" style="position:absolute;left:514px;top:964px;width:438px">LORO PIANA</p>
+<img class="photo" data-src="v7_aib_us05.jpg?v=0719" alt="Sorrento · Harbor" style="position:absolute;left:968px;top:84px;width:438px;height:280px" data-zoom="1" data-full="o_v7_aib_us05.jpg?v=0719" data-cap="SORRENTO · HARBOR" data-desc="항구 · 수평선 · 정박 보트">
+<p class="t3" style="position:absolute;left:968px;top:372px;width:438px">SORRENTO · HARBOR</p>
+<img class="photo" data-src="v7_ai_lp17.jpg?v=0719" alt="Loro Piana" style="position:absolute;left:968px;top:408px;width:438px;height:542px" data-zoom="1" data-full="o_v7_ai_lp17.jpg?v=0719" data-cap="LORO PIANA" data-desc="바위 · 로우앵글 · 패턴 실루엣">
+<p class="t3" style="position:absolute;left:968px;top:964px;width:438px">LORO PIANA</p>
+<img class="photo" data-src="v7_aib_28.jpg?v=0719" alt="Cove Marina" style="position:absolute;left:1422px;top:84px;width:438px;height:280px" data-zoom="1" data-full="o_v7_aib_28.jpg?v=0719" data-cap="COVE MARINA" data-desc="작은 만 · 마리나 · 절벽">
+<p class="t3" style="position:absolute;left:1422px;top:372px;width:438px">COVE MARINA</p>
+<img class="photo" data-src="v7_ai_og31.jpg?v=0719" alt="Officine Générale · 25Ss" style="position:absolute;left:1422px;top:408px;width:438px;height:542px" data-zoom="1" data-full="o_v7_ai_og31.jpg?v=0719" data-cap="OFFICINE GÉNÉRALE · 25SS" data-desc="도심 거리 · 유리 반사 · 자연광">
+<p class="t3" style="position:absolute;left:1422px;top:964px;width:438px">OFFICINE GÉNÉRALE · 25SS</p>
+<p class="t3" style="position:absolute;left:60px;top:1018px;width:600px">AI LOOKBOOK · 02 / 03</p>
+<p class="t3 right" style="position:absolute;left:1660px;top:1018px;width:200px">09 / 12</p>
+</section>
+<section id="s10" data-id="ai-residence">
+<h2 class="t2" style="position:absolute;left:60px;top:36px;width:600px">AI Lookbook</h2>
+<p class="t3 right" style="position:absolute;left:1060px;top:40px;width:800px">바다 테라스 · 퍼골라 · 머무는 공간</p>
+<img class="photo" data-src="v7_aib_41.jpg?v=0719" alt="White Arch Terrace" style="position:absolute;left:60px;top:84px;width:438px;height:280px" data-zoom="1" data-full="o_v7_aib_41.jpg?v=0719" data-cap="WHITE ARCH TERRACE" data-desc="흰 아치 · 테라스 · 바다 전망">
+<p class="t3" style="position:absolute;left:60px;top:372px;width:438px">WHITE ARCH TERRACE</p>
+<img class="photo" data-src="v7_ai_bw17.jpg?v=0719" alt="Blurhms · 26Ss" style="position:absolute;left:60px;top:408px;width:438px;height:542px" data-zoom="1" data-full="o_v7_ai_bw17.jpg?v=0719" data-cap="BLURHMS · 26SS" data-desc="수영장 · 흰 벽 · 기댄 자세">
+<p class="t3" style="position:absolute;left:60px;top:964px;width:438px">BLURHMS · 26SS</p>
+<img class="photo" data-src="v7_aib_us36.jpg?v=0719" alt="Tossa De Mar · Pergola" style="position:absolute;left:514px;top:84px;width:438px;height:280px" data-zoom="1" data-full="o_v7_aib_us36.jpg?v=0719" data-cap="TOSSA DE MAR · PERGOLA" data-desc="퍼골라 테라스 · 바다 전망">
+<p class="t3" style="position:absolute;left:514px;top:372px;width:438px">TOSSA DE MAR · PERGOLA</p>
+<img class="photo" data-src="v7_ai_lp27.jpg?v=0719" alt="Loro Piana" style="position:absolute;left:514px;top:408px;width:438px;height:542px" data-zoom="1" data-full="o_v7_ai_lp27.jpg?v=0719" data-cap="LORO PIANA" data-desc="들판 · 의자 착석 · 오후 자연광">
+<p class="t3" style="position:absolute;left:514px;top:964px;width:438px">LORO PIANA</p>
+<img class="photo" data-src="v7_aib_39.jpg?v=0719" alt="Seafront Promenade" style="position:absolute;left:968px;top:84px;width:438px;height:280px" data-zoom="1" data-full="o_v7_aib_39.jpg?v=0719" data-cap="SEAFRONT PROMENADE" data-desc="해변 산책로 · 퍼골라 · 역광">
+<p class="t3" style="position:absolute;left:968px;top:372px;width:438px">SEAFRONT PROMENADE</p>
+<img class="photo" data-src="v7_ai_bw04.jpg?v=0719" alt="Blurhms · 26Ss" style="position:absolute;left:968px;top:408px;width:438px;height:542px" data-zoom="1" data-full="o_v7_ai_bw04.jpg?v=0719" data-cap="BLURHMS · 26SS" data-desc="흰 벽 · 확산광 · 정자세">
+<p class="t3" style="position:absolute;left:968px;top:964px;width:438px">BLURHMS · 26SS</p>
+<img class="photo" data-src="v7_aib_01.jpg?v=0719" alt="Atrani · Sea View Lounge" style="position:absolute;left:1422px;top:84px;width:438px;height:280px" data-zoom="1" data-full="o_v7_aib_01.jpg?v=0719" data-cap="ATRANI · SEA VIEW LOUNGE" data-desc="아치 창 · 라운지 · 바다 전망">
+<p class="t3" style="position:absolute;left:1422px;top:372px;width:438px">ATRANI · SEA VIEW LOUNGE</p>
+<img class="photo" data-src="v7_ai_md31.jpg?v=0719" alt="Massimo Dutti · 26Ss" style="position:absolute;left:1422px;top:408px;width:438px;height:542px" data-zoom="1" data-full="o_v7_ai_md31.jpg?v=0719" data-cap="MASSIMO DUTTI · 26SS" data-desc="실내 테라스 · 자연광 · 착석">
+<p class="t3" style="position:absolute;left:1422px;top:964px;width:438px">MASSIMO DUTTI · 26SS</p>
+<p class="t3" style="position:absolute;left:60px;top:1018px;width:600px">AI LOOKBOOK · 03 / 03</p>
+<p class="t3 right" style="position:absolute;left:1660px;top:1018px;width:200px">10 / 12</p>
+</section>
+<section id="s11" data-id="schedule">
+<h2 class="t2" style="position:absolute;left:60px;top:36px;width:600px">Items · Schedule</h2>
+<p class="t3 right" style="position:absolute;left:1060px;top:40px;width:800px">AQUASCUTUM 27SS SHOOT PLAN</p>
+<div style="position:absolute;left:60px;top:220px;width:1140px;height:601px"><div class="rule" style="height:1px;margin-bottom:119px"></div><div class="rule" style="height:1px;margin-bottom:119px"></div><div class="rule" style="height:1px;margin-bottom:119px"></div><div class="rule" style="height:1px;margin-bottom:119px"></div><div class="rule" style="height:1px;margin-bottom:119px"></div><div class="rule" style="height:1px;margin-bottom:0px"></div></div>
+<div style="position:absolute;left:1300px;top:220px;width:560px;height:361px"><div class="rule" style="height:1px;margin-bottom:119px"></div><div class="rule" style="height:1px;margin-bottom:119px"></div><div class="rule" style="height:1px;margin-bottom:119px"></div><div class="rule" style="height:1px;margin-bottom:0px"></div></div>
+<p class="t3 b" style="position:absolute;left:60px;top:188px;width:170px">차수</p>
+<p class="t3 b" style="position:absolute;left:230px;top:188px;width:540px">주요 아이템 · CTA</p>
+<p class="t3 b" style="position:absolute;left:770px;top:188px;width:150px">AI 의뢰</p>
+<p class="t3 b" style="position:absolute;left:920px;top:188px;width:150px">AI 완료</p>
+<p class="t3 b" style="position:absolute;left:1070px;top:188px;width:130px">런칭</p>
+<div style="position:absolute;left:60px;top:220px;width:1140px;height:120px;display:flex;align-items:center"><p class="t2 b" style="width:170px;flex:none;line-height:28px">봄 1차</p><p class="t2" style="width:540px;flex:none;line-height:28px">트렌치 맥 코트 · 레이어드 카라 니트<br>깅엄체크 티블라우스</p><p class="t2" style="width:150px;flex:none;line-height:28px">1/12(화)</p><p class="t2" style="width:150px;flex:none;line-height:28px">1/15(금)</p><p class="t2" style="width:130px;flex:none;line-height:28px">2/4(목)</p></div>
+<div style="position:absolute;left:60px;top:340px;width:1140px;height:120px;display:flex;align-items:center"><p class="t2 b" style="width:170px;flex:none;line-height:28px">봄 2차</p><p class="t2" style="width:540px;flex:none;line-height:28px">실켓 아트웍 티셔츠 · 피그먼트 아트웍 티셔츠</p><p class="t2" style="width:150px;flex:none;line-height:28px">1/19(화)</p><p class="t2" style="width:150px;flex:none;line-height:28px">1/26(화)</p><p class="t2" style="width:130px;flex:none;line-height:28px">2/25(목)</p></div>
+<div style="position:absolute;left:60px;top:460px;width:1140px;height:120px;display:flex;align-items:center"><p class="t2 b" style="width:170px;flex:none;line-height:28px">여름 1차</p><p class="t2" style="width:540px;flex:none;line-height:28px">여성 윈콜 숏 점퍼 · 썸머 니트 탑</p><p class="t2" style="width:150px;flex:none;line-height:28px">1/28(목)</p><p class="t2" style="width:150px;flex:none;line-height:28px">2/4(목)</p><p class="t2" style="width:130px;flex:none;line-height:28px">3/4(목)</p></div>
+<div style="position:absolute;left:60px;top:580px;width:1140px;height:120px;display:flex;align-items:center"><p class="t2 b" style="width:170px;flex:none;line-height:28px">여름 2차</p><p class="t2" style="width:540px;flex:none;line-height:28px">링클프리 싱글 자켓 · 링클프리 더블 자켓</p><p class="t2" style="width:150px;flex:none;line-height:28px">2/17(수)</p><p class="t2" style="width:150px;flex:none;line-height:28px">2/22(월)</p><p class="t2" style="width:130px;flex:none;line-height:28px">3/25(목)</p></div>
+<div style="position:absolute;left:60px;top:700px;width:1140px;height:120px;display:flex;align-items:center"><p class="t2 b" style="width:170px;flex:none;line-height:28px">여름 3차</p><p class="t2" style="width:540px;flex:none;line-height:28px">프렌치린넨 헤링본 자켓 · 썸머 조직니트 탑<br>린넨 체크 셔츠</p><p class="t2" style="width:150px;flex:none;line-height:28px">2/26(금)</p><p class="t2" style="width:150px;flex:none;line-height:28px">3/5(금)</p><p class="t2" style="width:130px;flex:none;line-height:28px">4/5(월)</p></div>
+<p class="t3 b" style="position:absolute;left:1300px;top:188px;width:560px">예정</p>
+<div style="position:absolute;left:1300px;top:220px;width:560px;height:360px;display:flex;flex-direction:column"><div style="height:120px;display:flex;align-items:center"><p class="t2" style="width:560px;flex:none;line-height:28px">01 · 방향설정</p></div><div style="height:120px;display:flex;align-items:center"><p style="box-sizing:border-box; width:560px; flex:0 0 auto; font-family:Pretendard, Arial, sans-serif; font-size:21px; font-weight:500; line-height:1.33; letter-spacing:0; white-space:nowrap; margin:0" class="t2">02 · 대행사 OT / 시안, 모델 확정</p></div><div style="height:120px;display:flex;align-items:center"><p class="t2" style="width:560px;flex:none;line-height:28px">03 · 12월 촬영준비</p></div></div>
+<p class="t3 b" style="position:absolute;left:1300px;top:628px;width:560px">촬영</p>
+<p class="t2" style="position:absolute;left:1300px;top:660px;width:560px">스튜디오 촬영 1/4(월)-1/6(수) 중 2일 희망</p>
+<p class="t3" style="position:absolute;left:60px;top:844px;width:1140px">총 21개 아이템 · CTA 주요 제품 12개 · 여성 20 · 남성 1 · 채널 CJ · GS · 롯데 · 일정은 완료일 기준</p>
+<p class="t3" style="position:absolute;left:60px;top:1018px;width:600px">ITEMS · SCHEDULE</p>
+<p class="t3 right" style="position:absolute;left:1660px;top:1018px;width:200px">11 / 12</p>
+</section>
+<section id="s12" data-id="schedule-detail">
+<h2 class="t2" style="position:absolute;left:60px;top:36px;width:800px">Production Schedule</h2>
+<p class="t3 right" style="position:absolute;left:1060px;top:40px;width:800px">AQUASCUTUM 27SS SHOOT PLAN</p>
+<div style="position:absolute;left:60px;top:180px;width:1800px;height:801px"><div class="rule" style="height:1px;margin-bottom:159px"></div><div class="rule" style="height:1px;margin-bottom:159px"></div><div class="rule" style="height:1px;margin-bottom:159px"></div><div class="rule" style="height:1px;margin-bottom:159px"></div><div class="rule" style="height:1px;margin-bottom:159px"></div><div class="rule" style="height:1px;margin-bottom:0px"></div></div>
+<div style="position:absolute;left:60px;top:112px;width:1800px;height:24px;display:flex;align-items:center"><p class="t3 b" style="width:890px;flex:none"></p><p class="t3 b" style="width:260px;flex:none">제품컷</p><p class="t3 b" style="width:130px;flex:none">광고컷</p><p class="t3 b" style="width:130px;flex:none">AI컷</p><p class="t3 b" style="width:260px;flex:none">CTA · 상세</p><p class="t3 b" style="width:130px;flex:none"></p></div>
+<div style="position:absolute;left:60px;top:146px;width:1800px;height:24px;display:flex;align-items:center"><p class="t3 b" style="width:120px;flex:none">차수</p><p class="t3 b" style="width:770px;flex:none">제품 · <span style="color:#B0322A">주력 제품(CTA)</span> · 일반 제품</p><p class="t3 b" style="width:130px;flex:none">스튜디오 전달</p><p class="t3 b" style="width:130px;flex:none">제품컷 완료</p><p class="t3 b" style="width:130px;flex:none">리터칭 완료</p><p class="t3 b" style="width:130px;flex:none">AI 완료</p><p class="t3 b" style="width:130px;flex:none">CTA 완료</p><p class="t3 b" style="width:130px;flex:none">상세 완료</p><p class="t3 b" style="width:130px;flex:none">런칭</p></div>
+<div style="position:absolute;left:60px;top:180px;width:1800px;height:160px;display:flex;align-items:center"><p class="t2 b" style="width:120px;flex:none;line-height:28px">봄 1차<br><span class="t3" style="font-weight:500">착장 8</span></p><div style="width:770px;flex:none"></div><p class="t2" style="width:130px;flex:none;line-height:28px">12/30(수)</p><p class="t2" style="width:130px;flex:none;line-height:28px">1/6(수)</p><p class="t2" style="width:130px;flex:none;line-height:28px">1/18(월)</p><p class="t2" style="width:130px;flex:none;line-height:28px">1/15(금)</p><p class="t2" style="width:130px;flex:none;line-height:28px">1/22(금)</p><p class="t2" style="width:130px;flex:none;line-height:28px">1/21(목)</p><p class="t2 b" style="width:130px;flex:none;line-height:28px">2/4(목)</p></div>
+<img class="photo" data-src="v7_prodc_p1.png?v=0719" alt="봄 1차 제품" style="position:absolute;left:180px;top:194px;width:470px;height:100px">
+<div class="t3" style="position:absolute;left:180px;top:298px;width:770px;display:flex;line-height:17px"><span style="display:block;width:110px;margin-right:10px;flex:none;white-space:normal;word-break:keep-all;text-align:center;color:#B0322A;font-weight:700">트렌치 맥 코트</span><span style="display:block;width:110px;margin-right:10px;flex:none;white-space:normal;word-break:keep-all;text-align:center;color:#B0322A;font-weight:700">레이어드 카라 니트</span><span style="display:block;width:110px;margin-right:10px;flex:none;white-space:normal;word-break:keep-all;text-align:center;color:#B0322A;font-weight:700">깅엄체크 티블라우스</span><span style="display:block;width:110px;margin-right:10px;flex:none;white-space:normal;word-break:keep-all;text-align:center;color:#111111">링클프리 팬츠</span></div>
+<div style="position:absolute;left:60px;top:340px;width:1800px;height:160px;display:flex;align-items:center"><p class="t2 b" style="width:120px;flex:none;line-height:28px">봄 2차<br><span class="t3" style="font-weight:500">착장 6</span></p><div style="width:770px;flex:none"></div><p class="t2" style="width:130px;flex:none;line-height:28px">1/4(월)</p><p class="t2" style="width:130px;flex:none;line-height:28px">1/11(월)</p><p class="t2" style="width:130px;flex:none;line-height:28px">1/21(목)</p><p class="t2" style="width:130px;flex:none;line-height:28px">1/26(화)</p><p class="t2" style="width:130px;flex:none;line-height:28px">2/10(수)</p><p class="t2" style="width:130px;flex:none;line-height:28px">2/11(목)</p><p class="t2 b" style="width:130px;flex:none;line-height:28px">2/25(목)</p></div>
+<img class="photo" data-src="v7_prodd_p2.png?v=0719" alt="봄 2차 제품" style="position:absolute;left:180px;top:354px;width:350px;height:100px">
+<div class="t3" style="position:absolute;left:180px;top:458px;width:770px;display:flex;line-height:17px"><span style="display:block;width:110px;margin-right:10px;flex:none;white-space:normal;word-break:keep-all;text-align:center;color:#B0322A;font-weight:700">실켓 아트웍 티셔츠</span><span style="display:block;width:110px;margin-right:10px;flex:none;white-space:normal;word-break:keep-all;text-align:center;color:#B0322A;font-weight:700">피그먼트 아트웍&nbsp;<br>티셔츠</span><span style="display:block;width:110px;margin-right:10px;flex:none;white-space:normal;word-break:keep-all;text-align:center;color:#111111">피그먼트 컬러 데님</span></div>
+<div style="position:absolute;left:60px;top:500px;width:1800px;height:160px;display:flex;align-items:center"><p class="t2 b" style="width:120px;flex:none;line-height:28px">여름 1차<br><span class="t3" style="font-weight:500">착장 9</span></p><div style="width:770px;flex:none"></div><p class="t2" style="width:130px;flex:none;line-height:28px">1/7(목)</p><p class="t2" style="width:130px;flex:none;line-height:28px">1/14(목)</p><p class="t2" style="width:130px;flex:none;line-height:28px">1/28(목)</p><p class="t2" style="width:130px;flex:none;line-height:28px">2/4(목)</p><p class="t2" style="width:130px;flex:none;line-height:28px">2/17(수)</p><p class="t2" style="width:130px;flex:none;line-height:28px">2/18(목)</p><p class="t2 b" style="width:130px;flex:none;line-height:28px">3/4(목)</p></div>
+<img class="photo" data-src="v7_prodd_p3.png?v=0719" alt="여름 1차 제품" style="position:absolute;left:180px;top:514px;width:350px;height:100px">
+<div class="t3" style="position:absolute;left:180px;top:618px;width:770px;display:flex;line-height:17px"><span style="display:block;width:110px;margin-right:10px;flex:none;white-space:normal;word-break:keep-all;text-align:center;color:#B0322A;font-weight:700">윈콜 숏 점퍼</span><span style="display:block;width:110px;margin-right:10px;flex:none;white-space:normal;word-break:keep-all;text-align:center;color:#B0322A;font-weight:700">썸머 니트 탑</span><span style="display:block;width:110px;margin-right:10px;flex:none;white-space:normal;word-break:keep-all;text-align:center;color:#111111">윈콜 롱 점퍼</span></div>
+<div style="position:absolute;left:60px;top:660px;width:1800px;height:160px;display:flex;align-items:center"><p class="t2 b" style="width:120px;flex:none;line-height:28px">여름 2차<br><span class="t3" style="font-weight:500">착장 9</span></p><div style="width:770px;flex:none"></div><p class="t2" style="width:130px;flex:none;line-height:28px">1/18(월)</p><p class="t2" style="width:130px;flex:none;line-height:28px">1/25(월)</p><p class="t2" style="width:130px;flex:none;line-height:28px">2/12(금)</p><p class="t2" style="width:130px;flex:none;line-height:28px">2/22(월)</p><p class="t2" style="width:130px;flex:none;line-height:28px">3/5(금)</p><p class="t2" style="width:130px;flex:none;line-height:28px">3/11(목)</p><p class="t2 b" style="width:130px;flex:none;line-height:28px">3/25(목)</p></div>
+<img class="photo" data-src="v7_prodc_p4.png?v=0719" alt="여름 2차 제품" style="position:absolute;left:180px;top:674px;width:590px;height:100px">
+<div class="t3" style="position:absolute;left:180px;top:778px;width:770px;display:flex;line-height:17px"><span style="display:block;width:110px;margin-right:10px;flex:none;white-space:normal;word-break:keep-all;text-align:center;color:#B0322A;font-weight:700">링클프리 싱글 자켓</span><span style="display:block;width:110px;margin-right:10px;flex:none;white-space:normal;word-break:keep-all;text-align:center;color:#B0322A;font-weight:700">링클프리 더블 자켓</span><span style="display:block;width:110px;margin-right:10px;flex:none;white-space:normal;word-break:keep-all;text-align:center;color:#111111">링클프리 블라우스</span><span style="display:block;width:110px;margin-right:10px;flex:none;white-space:normal;word-break:keep-all;text-align:center;color:#111111">링클프리 팬츠</span><span style="display:block;width:110px;margin-right:10px;flex:none;white-space:normal;word-break:keep-all;text-align:center;color:#111111">링클프리 원피스</span></div>
+<div style="position:absolute;left:60px;top:820px;width:1800px;height:160px;display:flex;align-items:center"><p class="t2 b" style="width:120px;flex:none;line-height:28px">여름 3차<br><span class="t3" style="font-weight:500">착장 12</span></p><div style="width:770px;flex:none"></div><p class="t2" style="width:130px;flex:none;line-height:28px">1/27(수)</p><p class="t2" style="width:130px;flex:none;line-height:28px">2/3(수)</p><p class="t2" style="width:130px;flex:none;line-height:28px">2/19(금)</p><p class="t2" style="width:130px;flex:none;line-height:28px">3/5(금)</p><p class="t2" style="width:130px;flex:none;line-height:28px">3/19(금)</p><p class="t2" style="width:130px;flex:none;line-height:28px">3/22(월)</p><p class="t2 b" style="width:130px;flex:none;line-height:28px">4/5(월)</p></div>
+<img class="photo" data-src="v7_prodd_p5.png?v=0719" alt="여름 3차 제품" style="position:absolute;left:180px;top:834px;width:710px;height:100px">
+<div class="t3" style="position:absolute;left:180px;top:938px;width:770px;display:flex;line-height:17px"><span style="display:block;width:110px;margin-right:10px;flex:none;white-space:normal;word-break:keep-all;text-align:center;color:#B0322A;font-weight:700">린넨 헤링본 자켓</span><span style="display:block;width:110px;margin-right:10px;flex:none;white-space:normal;word-break:keep-all;text-align:center;color:#B0322A;font-weight:700">썸머 조직니트 탑</span><span style="display:block;width:110px;margin-right:10px;flex:none;white-space:normal;word-break:keep-all;text-align:center;color:#B0322A;font-weight:700">린넨 체크 셔츠</span><span style="display:block;width:110px;margin-right:10px;flex:none;white-space:normal;word-break:keep-all;text-align:center;color:#111111">남성 린넨 헤링본 자켓</span><span style="display:block;width:110px;margin-right:10px;flex:none;white-space:normal;word-break:keep-all;text-align:center;color:#111111">텐셀 데님 팬츠</span><span style="display:block;width:110px;margin-right:10px;flex:none;white-space:normal;word-break:keep-all;text-align:center;color:#111111">레이스 스커트</span></div>
+<p class="t3" style="position:absolute;left:60px;top:1018px;width:1500px">PRODUCTION SCHEDULE · 총 21개 아이템 · 주력 제품(CTA) 12 · 착장 44 · 차수 대표 아이템 완료일 기준</p>
+<p class="t3 right" style="position:absolute;left:1660px;top:1018px;width:200px">12 / 12</p>
+</section>
+</div></div>
+<button class="nav" id="prev" aria-label="previous"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+<button class="nav" id="next" aria-label="next"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+<div id="bar"><i></i></div>
+<div id="hud" class="ui"><button id="fs" type="button" aria-label="fullscreen"><svg class="out" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><svg class="in" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg></button></div>
+<div id="rot" class="off" aria-label="rotate"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2"/></svg></div>
+<div id="lb" class="ui off"><img alt=""><div class="cap"><span id="lbc"></span><span id="lbd"></span></div><button id="lbp" type="button" aria-label="previous"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><button id="lbn" type="button" aria-label="next"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button><button id="lbx" type="button" aria-label="close"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var G = !!(window.gsap && !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches));
+  var N = 12, cur = 1, stage = document.getElementById('stage'), secs = stage.querySelectorAll('section');
+  var bar = document.querySelector('#bar i'), prevB = document.getElementById('prev'), nextB = document.getElementById('next');
+  var lb = document.getElementById('lb'), lbImg = lb.querySelector('img'), lbCap = document.getElementById('lbc'), lbDesc = document.getElementById('lbd'), lbSet = [], lbIdx = 0;
+  var fsBtn = document.getElementById('fs'), rot = document.getElementById('rot');
+  var canFs = !!(document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen);
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function fit() {
+    var s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+    stage.style.transform = 'scale(' + s + ')';
+    var coarse = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+    rot.className = (coarse && window.innerHeight > window.innerWidth ? '' : 'off');
+  }
+  function load(n) {
+    for (var k = n - 2; k <= n + 2; k++) {
+      if (k < 1 || k > N) continue;
+      var im = secs[k - 1].querySelectorAll('img[data-src]');
+      for (var i = 0; i < im.length; i++) { im[i].onerror = retryImg; im[i].src = im[i].getAttribute('data-src'); im[i].removeAttribute('data-src'); }
+    }
+  }
+  function go(n, silent) {
+    n = Math.max(1, Math.min(N, n)); load(n);
+    var prev = cur, next = secs[n - 1], old = secs[prev - 1];
+    if (G && !silent && prev !== n) {
+      gsap.killTweensOf([old, next]);
+      for (var i = 0; i < N; i++) if (i !== n - 1 && i !== prev - 1) { gsap.killTweensOf(secs[i]); secs[i].className = ''; gsap.set(secs[i], { clearProps: 'opacity,visibility' }); }
+      next.className = 'on';
+      gsap.fromTo(next, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.35, ease: 'power2.out', clearProps: 'opacity,visibility' });
+      gsap.fromTo(old, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.25, ease: 'power1.out', onComplete: function () { if (old !== secs[cur - 1]) old.className = ''; gsap.set(old, { clearProps: 'opacity,visibility' }); } });
+      setTimeout(function () { if (old !== secs[cur - 1]) { gsap.killTweensOf(old); old.className = ''; gsap.set(old, { clearProps: 'opacity,visibility' }); } if (next === secs[cur - 1]) gsap.set(next, { clearProps: 'opacity,visibility' }); }, 450);
+      var hero = next.querySelector('.shade') && next.querySelector('img.photo');
+      if (hero) gsap.fromTo(hero, { scale: 1.04 }, { scale: 1, duration: 1.6, ease: 'power2.out', clearProps: 'transform' });
+    } else {
+      for (var i = 0; i < N; i++) secs[i].className = (i === n - 1) ? 'on' : '';
+    }
+    cur = n; prevB.disabled = (n === 1); nextB.disabled = (n === N); bar.style.width = (n / N * 100) + '%';
+    if (!silent && history.replaceState) history.replaceState(null, '', '#' + n);
+  }
+  function fromHash() { var m = /^#(\d+)$/.exec(location.hash); return m ? parseInt(m[1], 10) : 1; }
+  function isFs() { return document.fullscreenElement || document.webkitFullscreenElement; }
+  function fsOn() { var el = document.documentElement, p = (el.requestFullscreen || el.webkitRequestFullscreen).call(el); if (p && p['catch']) p['catch'](function () {}); }
+  function fsOff() { (document.exitFullscreen || document.webkitExitFullscreen).call(document); }
+  function fsLabel() { setCls('fs', !!isFs()); }
+  function retryImg() { if (this.getAttribute('data-retry')) return; this.setAttribute('data-retry', '1'); var u = this.getAttribute('src').split('?')[0]; var me = this; setTimeout(function () { me.src = u + '?r=' + Date.now(); }, 800); }
+  function setCls(c, on) { var b = document.body, k = (' ' + b.className + ' ').replace(' ' + c + ' ', ' ').replace(/^ +| +$/g, ''); b.className = on ? (k ? k + ' ' + c : c) : k; }
+  function openLb(img) {
+    var all = secs[cur - 1].querySelectorAll('img[data-zoom]'); lbSet = Array.prototype.slice.call(all); lbIdx = lbSet.indexOf(img); showLb();
+    lb.className = 'ui';
+    if (G) gsap.fromTo(lb, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.22, ease: 'power2.out', clearProps: 'opacity,visibility' });
+  }
+  function showLb() {
+    var im = lbSet[lbIdx]; lbImg.src = im.getAttribute('data-full') || im.currentSrc || im.src;
+    if (G) gsap.fromTo(lbImg, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3, ease: 'power2.out', clearProps: 'opacity,visibility' });
+    lbCap.textContent = pad(lbIdx + 1) + ' / ' + pad(lbSet.length) + (im.getAttribute('data-cap') ? ' · ' + im.getAttribute('data-cap') : '');
+    lbDesc.textContent = im.getAttribute('data-desc') || '';
+  }
+  function stepLb(d) { lbIdx = (lbIdx + d + lbSet.length) % lbSet.length; showLb(); }
+  function closeLb() { if (G) { gsap.to(lb, { autoAlpha: 0, duration: 0.18, ease: 'power1.out', onComplete: function () { lb.className = 'ui off'; gsap.set(lb, { clearProps: 'opacity,visibility' }); } }); } else lb.className = 'ui off'; }
+  function lbOpen() { return lb.className.indexOf('off') < 0; }
+
+  document.getElementById('prev').onclick = function () { go(cur - 1); };
+  document.getElementById('next').onclick = function () { go(cur + 1); };
+  var autoFs = canFs;
+  fsBtn.onclick = function () { autoFs = false; if (isFs()) fsOff(); else fsOn(); };
+  function firstFs(e) { if (!autoFs) return; autoFs = false; if (e.type === 'keydown' && (e.key === 'Escape' || e.key === 'F11' || e.key === 'F5' || e.ctrlKey || e.metaKey || e.altKey)) { autoFs = true; return; } if (!isFs()) { try { fsOn(); } catch (x) {} } }
+  ['click', 'keydown', 'touchend'].forEach(function (ev) { document.addEventListener(ev, firstFs); });
+  if (!canFs) fsBtn.style.display = 'none';
+  document.addEventListener('fullscreenchange', fsLabel); document.addEventListener('webkitfullscreenchange', fsLabel);
+  document.getElementById('lbp').onclick = function (e) { e.stopPropagation(); stepLb(-1); };
+  document.getElementById('lbn').onclick = function (e) { e.stopPropagation(); stepLb(1); };
+  document.getElementById('lbx').onclick = closeLb; lb.onclick = function (e) { if (e.target === lb || e.target === lbImg) closeLb(); };
+  stage.addEventListener('click', function (e) { if (e.target.getAttribute && e.target.getAttribute('data-zoom')) openLb(e.target); });
+  document.addEventListener('keydown', function (e) {
+    var k = e.key;
+    if (lbOpen()) { if (k === 'Escape') closeLb(); else if (k === 'ArrowLeft') stepLb(-1); else if (k === 'ArrowRight') stepLb(1); return; }
+    if (k === 'ArrowRight' || k === 'PageDown' || k === ' ' || k === 'ArrowDown') { e.preventDefault(); go(cur + 1); }
+    else if (k === 'ArrowLeft' || k === 'PageUp' || k === 'ArrowUp') { e.preventDefault(); go(cur - 1); }
+    else if (k === 'Home') go(1); else if (k === 'End') go(N);
+  });
+  var wheelAt = 0;
+  window.addEventListener('wheel', function (e) {
+    if (lbOpen()) return; var now = Date.now(); if (now - wheelAt < 520) return;
+    var d = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX; if (Math.abs(d) < 12) return;
+    wheelAt = now; go(cur + (d > 0 ? 1 : -1));
+  }, { passive: true });
+  var tx = 0, ty = 0;
+  document.addEventListener('touchstart', function (e) { tx = e.changedTouches[0].clientX; ty = e.changedTouches[0].clientY; }, { passive: true });
+  document.addEventListener('touchend', function (e) {
+    var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    if (Math.abs(dx) < 44 || Math.abs(dx) < Math.abs(dy) * 1.2) return;
+    if (lbOpen()) stepLb(dx < 0 ? 1 : -1); else go(cur + (dx < 0 ? 1 : -1));
+  }, { passive: true });
+  var idleT = 0;
+  function wake() { setCls('idle', false); clearTimeout(idleT); idleT = setTimeout(function () { setCls('idle', true); setCls('hint', false); }, 3200); }
+  ['mousemove', 'touchstart', 'keydown', 'click'].forEach(function (ev) { document.addEventListener(ev, wake, { passive: true }); }); wake();
+  window.addEventListener('resize', fit); window.addEventListener('orientationchange', fit);
+  window.addEventListener('hashchange', function () { go(fromHash(), true); });
+  setCls('hint', true);
+  fit(); go(fromHash(), true);
+  setTimeout(function () { stage.className = G ? 'gs' : ''; }, 400);
+})();
+</script>
+</body>
+</html>
